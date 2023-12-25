@@ -1,0 +1,36 @@
+--select films that contributed the most to revenue gain						
+						
+SELECT title, SUM(amount) AS revenue						
+FROM film						
+INNER JOIN inventory ON film.film_id = inventory.film_id						
+INNER JOIN rental ON inventory.inventory_id = rental.inventory_id						
+INNER JOIN payment ON rental.rental_id = payment.rental_id						
+GROUP BY title						
+ORDER BY revenue DESC						
+LIMIT 10;
+
+
+--select films that contributed the least to revenue gain						
+						
+SELECT title, SUM(amount) AS revenue						
+FROM film						
+INNER JOIN inventory ON film.film_id = inventory.film_id						
+INNER JOIN rental ON inventory.inventory_id = rental.inventory_id						
+INNER JOIN payment ON rental.rental_id = payment.rental_id						
+GROUP BY title						
+ORDER BY revenue ASC						
+LIMIT 10;
+
+
+--top 10 genres that contributed the most to revenue gain						
+						
+SELECT category.name, SUM(amount) AS revenue						
+FROM film						
+INNER JOIN film_category ON film.film_id = film_category.film_id						
+INNER JOIN category ON film_category.category_id = category.category_id						
+INNER JOIN inventory ON film.film_id = inventory.film_id						
+INNER JOIN rental ON inventory.inventory_id = rental.inventory_id						
+INNER JOIN payment ON rental.rental_id = payment.rental_id						
+GROUP BY category.name						
+ORDER BY revenue DESC						
+LIMIT 10;
