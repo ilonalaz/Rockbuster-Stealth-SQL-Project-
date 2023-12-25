@@ -1,0 +1,56 @@
+--count_of_movies												
+
+SELECT COUNT(film_id) AS film_count
+FROM film;
+												
+--release_year												
+												
+SELECT COUNT(film_id), release_year
+FROM film
+GROUP BY release_year;
+												
+--language												
+												
+SELECT COUNT(film_id) AS count_movies, language.language_id, language.name AS language
+FROM film
+RIGHT JOIN language ON film.language_id = language.language_id
+GROUP BY language.name, language.language_id
+ORDER BY count_movies DESC;            	
+												
+--customers												
+												
+SELECT DISTINCT COUNT(customer_id)	
+FROM customer;
+												
+--store												
+												
+SELECT store_id, country
+FROM store
+INNER JOIN address ON store.address_id = address.address_id
+INNER JOIN city ON address.city_id = city.city_id
+INNER JOIN country ON city.country_id = country.country_id;
+												
+--customer_country												
+												
+SELECT DISTINCT COUNT(customer_id), country
+INNER JOIN address ON customer.address_id = address.address_id
+INNER JOIN city ON address.city_id = city.city_id
+INNER JOIN country ON city.country_id = country.country_id
+GROUP BY country.country;
+												
+												
+--summary	
+												
+SELECT MIN(rental_rate) AS min_rental_rate,
+       MAX(rental_rate) AS max_rental_rate,
+	   AVG(rental_rate) AS avg_rental_rate,
+	   MIN(rental_duration) AS min_rental_duration,
+	   MAX(rental_duration) AS max_rental_duration,
+     AVG(rental_duration) AS avg_rental_duration,											
+	   MIN(length) AS min_length,
+	   MAX(length) AS max_length,
+	   AVG(length) AS avg_length,
+	   MIN(replacement_cost) AS min_replacement_cost,
+	   MAX(replacement_cost) AS max_replacement_cost,
+	   AVG(replacement_cost) AS avg_replacement_cost
+FROM film;
