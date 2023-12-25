@@ -1,0 +1,28 @@
+--average_rental_duration					
+					
+SELECT AVG(rental_duration) AS average_rental_duration					
+FROM film;					
+
+
+--customers_country						
+						
+SELECT COUNT(customer_id) AS customer_count, country						
+FROM customer						
+INNER JOIN address ON customer.address_id = address.address_id						
+INNER JOIN city ON address.city_id = city.city_id						
+INNER JOIN country ON city.country_id = country.country_id						
+GROUP BY country						
+ORDER BY customer_count DESC;						
+
+
+
+--top_10_countries						
+						
+SELECT COUNT(customer_id) AS customer_count, country						
+FROM customer						
+INNER JOIN address ON customer.address_id = address.address_id						
+INNER JOIN city ON address.city_id = city.city_id						
+INNER JOIN country ON city.country_id = country.country_id						
+GROUP BY country						
+ORDER BY customer_count DESC						
+LIMIT 10;				
