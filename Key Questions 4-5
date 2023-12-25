@@ -1,0 +1,27 @@
+--TOP 5 customers from TOP 10 cities that paid the biggest amount								
+								
+SELECT customer.customer_id, first_name, last_name, country, city,								
+SUM(amount) AS total_amount_paid								
+FROM customer								
+INNER JOIN address ON customer.address_id = address.address_id								
+INNER JOIN city ON address.city_id = city.city_id								
+INNER JOIN country ON city.country_id = country.country_id								
+INNER JOIN payment ON customer.customer_id = payment.customer_id								
+WHERE city IN('Aurora', 'Acua', 'Citrus Heights', 'Iwaki', 'Ambattur', 								
+			  'Shanwei', 'So Leopoldo', 'Teboksary', 'Tianjin', 'Cianjur')					
+GROUP BY customer.customer_id, country, city								
+ORDER BY total_amount_paid DESC								
+LIMIT 5;
+
+
+--country_sales						
+						
+SELECT country, SUM(amount) AS total_sales						
+FROM payment						
+INNER JOIN customer ON payment.customer_id = customer.customer_id						
+INNER JOIN address ON customer.address_id = address.address_id						
+INNER JOIN city ON address.city_id = city.city_id						
+INNER JOIN country ON city.country_id = country.country_id						
+GROUP BY country						
+ORDER BY total_sales DESC;						
+
